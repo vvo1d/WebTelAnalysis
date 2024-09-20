@@ -1,0 +1,10 @@
+<!-- templates/wordcloud.html -->
+{% extends "base.html" %}
+{% block content %}
+    <h1>Облако слов</h1>
+    {% if image %}
+        <img src="data:image/png;base64,{{ image }}" alt="Word Cloud">
+    {% else %}
+        <p>Облако слов не доступно.</p>
+    {% endif %}
+{% endblock %}

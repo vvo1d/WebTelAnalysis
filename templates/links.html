@@ -1,0 +1,29 @@
+<!-- templates/links.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Ссылки в чате</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ссылка</th>
+            <th>Отправитель</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for link in links %}
+            <tr>
+                <td><a href="{{ link.link }}" target="_blank">{{ link.link }}</a></td>
+                <td>
+                    <a href="{{ url_for('user_messages', user_id=link.from_id) }}">
+                        {{ link.from_name }} (ID: {{ link.from_id }})
+                    </a>
+                    {% if link.from_id in admins %}
+                        <span class="badge badge-primary">Админ</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

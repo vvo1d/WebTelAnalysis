@@ -1,0 +1,23 @@
+<!-- templates/search_results.html -->
+{% extends "base.html" %}
+{% block content %}
+    <h1>Результаты поиска по "{{ keyword }}"</h1>
+    {% if messages %}
+        <ul class="list-group">
+            {% for msg in messages %}
+                <li class="list-group-item">
+                    <strong>{{ msg.date }}</strong> - 
+                    <a href="{{ url_for('user_messages', user_id=msg.from_id) }}">
+                        {{ msg.from_name }} (ID: {{ msg.from_id }})
+                    </a>
+                    {% if msg.from_id in admins %}
+                        <span class="badge badge-primary">Админ</span>
+                    {% endif %}
+                    <p>{{ msg.text_content }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Сообщений, соответствующих поисковому запросу, не найдено.</p>
+    {% endif %}
+{% endblock %}

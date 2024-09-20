@@ -1,0 +1,16 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Добро пожаловать в Telegram Анализатор!</h1>
+        <p class="lead">Загрузите JSON-файл экспорта чата Telegram для анализа.</p>
+        <hr class="my-4">
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Выберите файл JSON экспорта чата:</label>
+                <input type="file" class="form-control-file" name="file" accept=".json" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Загрузить</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/history.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Полная история сообщений</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Отправитель</th>
+            <th>Сообщение</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for msg in messages %}
+            <tr>
+                <td>{{ msg.date }}</td>
+                <td>
+                    <a href="{{ url_for('user_messages', user_id=msg.from_id) }}">
+                        {{ msg.from_name }} (ID: {{ msg.from_id }})
+                    </a>
+                    {% if msg.from_id in admins %}
+                        <span class="badge badge-primary">Админ</span>
+                    {% endif %}
+                </td>
+                <td>{{ msg.text_content }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<div class="d-flex justify-content-center">
+    {{ pagination.links }}
+</div>
+{% endblock %}

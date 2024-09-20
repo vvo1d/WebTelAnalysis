@@ -1,0 +1,22 @@
+<!-- templates/frequent_words.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Самые часто используемые слова</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Слово</th>
+            <th>Частота</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for word, count in most_common %}
+            <tr>
+                <td>{{ word }}</td>
+                <td>{{ count }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

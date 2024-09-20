@@ -1,0 +1,6 @@
+Flask==3.0.3
+flask-paginate==2024.4.12
+matplotlib==3.9.2
+networkx==3.2.1
+pymorphy2==0.9.1
+pymorphy2-dicts-ru==2.4.417127.4579844

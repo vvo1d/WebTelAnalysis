@@ -1,0 +1,13 @@
+<!-- templates/user_messages.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Сообщения пользователя {{ user_name }}</h1>
+<ul class="list-group">
+    {% for msg in messages %}
+        <li class="list-group-item">
+            <strong>{{ msg.date }}</strong>: {{ msg.text_content }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

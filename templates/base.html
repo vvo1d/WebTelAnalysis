@@ -1,0 +1,71 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Анализ Telegram чата" }}</title>
+    <!-- Подключение Bootstrap для стилизации -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Дополнительные стили (опционально) -->
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Telegram Анализатор</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                {% if participants %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('participants_list') }}">Участники</a>
+                    </li>
+                {% endif %}
+                {% if messages %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('message_history') }}">История сообщений</a>
+                    </li>
+                {% endif %}
+                {% if participants and messages %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('display_graph') }}">Граф связей</a>
+                    </li>
+                {% endif %}
+                {% if messages %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('links_list') }}">Ссылки</a>
+                    </li>
+                {% endif %}
+                {% if messages %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('frequent_words') }}">Часто используемые слова</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if participants %}
+                <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_messages') }}" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск" name="keyword" required>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
+                </form>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Подключение JS для Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
