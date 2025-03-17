@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Граф связей участников</h1>
     <div id="mynetwork" style="width: 100%; height: 600px;"></div>
-    <script type="text/javascript" src="https://unpkg.com/vis-network@9.0.4/dist/vis-network.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.0/dist/vis-network.min.js"></script>
     <script type="text/javascript">
         var nodes = new vis.DataSet({{ graph_data.nodes|tojson }});
         var edges = new vis.DataSet({{ graph_data.links|tojson }});
@@ -14,19 +14,30 @@
         };
         var options = {
             nodes: {
-                shape: 'dot',
-                size: 15,
-                font: {
-                    size: 14,
-                    color: '#000'
-                }
+                nodes: {
+                shape: 'dot',  // форма узлов
+                size: 10,      // размер узлов
+                font: { size: 14 }  // размер шрифта на узле
+            },
             },
             edges: {
+                width: 0.15,   // толщина ребер
+                smooth: { type: 'continuous' },  // плавность линии ребра
                 arrows: 'to',
                 color: '#ccc'
             },
             physics: {
-                enabled: true
+                enabled: true,
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: 0,  // гравитация (меньше значение - сильнее притягиваются узлы)
+                    centralGravity: 0,       // сила, тянущая узлы к центру
+                    springLength: 830,           // длина пружины, соединяющей узлы
+                    springConstant: 0.08,        // сила отталкивания пружины
+                    damping: 0.4,                // демпфирование
+                    avoidOverlap: 1              // избегать наложения узлов
+                },
+                timestep: 0.5
             },
             interaction: {
                 hover: true

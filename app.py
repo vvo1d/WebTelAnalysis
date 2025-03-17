@@ -139,16 +139,19 @@ def search_messages():
 @app.route('/graph')
 def display_graph():
     G = build_connection_graph()
-    # Конвертируем граф в данные для визуализации
+    # Преобразуем граф в данные для vis.js
     graph_data = nx.node_link_data(G)
+    
     # Обновляем узлы с метками имен
     for node in graph_data['nodes']:
         user_id = node['id']
         node['label'] = participants.get(user_id, {}).get('name', 'Unknown')
+    
     # Обновляем ребра для vis.js
     for link in graph_data['links']:
         link['from'] = link.pop('source')
         link['to'] = link.pop('target')
+    
     return render_template('graph.html', graph_data=graph_data)
 
 def build_connection_graph():
